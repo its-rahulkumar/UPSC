@@ -3,51 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Have Patience Rahul</title>
+    <title>Motivational Notice Board</title>
     <style>
         body {
+            margin: 0;
+            padding: 0;
+            background: url('https://source.unsplash.com/1600x900/?corkboard,bulletin') no-repeat center center/cover;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            background: url('https://source.unsplash.com/1600x900/?nature,landscape') no-repeat center center/cover;
-            color: white;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Arial', sans-serif;
+        }
+        .board {
+            width: 90%;
+            max-width: 900px;
+            height: 90vh;
+            background: url('https://source.unsplash.com/900x900/?wood,texture') no-repeat center center/cover;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+            position: relative;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .note {
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+            font-size: 1em;
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transform: rotate(var(--rotate));
+            background: linear-gradient(45deg, var(--color1), var(--color2));
+            color: #333;
         }
-        .quote-box {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            max-width: 600px;
-        }
-        .quote {
-            font-size: 24px;
-            font-style: italic;
-            font-weight: bold;
-            line-height: 1.5;
-        }
-        .quote span {
-            display: block;
-            margin-top: 10px;
-            font-size: 26px;
-            font-weight: bold;
-            color: #ffcc00;
-        }
-        .author {
-            margin-top: 15px;
-            font-size: 18px;
-            font-weight: bold;
-            color: #f8f8f8;
+        /* Different gradient colors */
+        .note:nth-child(1) { --color1: #FFDDC1; --color2: #FFC3A0; font-family: 'Comic Sans MS', cursive; }
+        .note:nth-child(2) { --color1: #D5AAFF; --color2: #85E3FF; font-family: 'Courier New', monospace; }
+        .note:nth-child(3) { --color1: #B9FBC0; --color2: #FF9CEE; font-family: 'Georgia', serif; }
+        .note:nth-child(4) { --color1: #FBE7C6; --color2: #A0E7E5; font-family: 'Verdana', sans-serif; }
+        .note:nth-child(5) { --color1: #B4F8C8; --color2: #FFD3B6; font-family: 'Trebuchet MS', sans-serif; }
+        .note:nth-child(6) { --color1: #FFCCF9; --color2: #AFCBFF; font-family: 'Arial Black', sans-serif; }
+        .note:nth-child(7) { --color1: #FF9CEE; --color2: #D5AAFF; font-family: 'Lucida Handwriting', cursive; }
+        .note:nth-child(8) { --color1: #A0E7E5; --color2: #FFDDC1; font-family: 'Times New Roman', serif; }
+        .note:nth-child(9) { --color1: #85E3FF; --color2: #B4F8C8; font-family: 'Tahoma', sans-serif; }
+        .note:nth-child(10) { --color1: #FFC3A0; --color2: #B9FBC0; font-family: 'Palatino Linotype', serif; }
+        .note:nth-child(11) { --color1: #FBE7C6; --color2: #FFCCF9; font-family: 'Impact', sans-serif; }
+        .note:nth-child(12) { --color1: #B4F8C8; --color2: #AFCBFF; font-family: 'Garamond', serif; }
+        
+        /* Sticky tape effect */
+        .note::before {
+            content: "";
+            width: 50px;
+            height: 15px;
+            background: rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 3px;
         }
     </style>
 </head>
 <body>
-    <div class="quote-box">
-        <p class="quote">“Don't look for reasons and relief, you need to work to achieve what you are thinking to achieve. <span>Go get it now.”</span></p>
-        <p class="author">- Rahul</p>
-    </div>
+
+    <div class="board" id="board"></div>
+
+    <script>
+        const quotes = [
+            "The only thing needed is your hard work!",
+            "Just for a few months, your mother has waited for years!",
+            "Think in long term, it won't matter in a few months!",
+            "The right person won't be found chasing, they appear when you are busy building your life!",
+            "When every sense of your body desires something, the whole universe works for you!",
+            "Dream so big that your family thinks you are crazy!",
+            "Why to get serious?",
+            "I want to become an IAS officer because I have better intentions than others.",
+            "I am the only one who can control me.",
+            "Mujhe Sabar Hai!",
+            "You are free to do anything after the interview!",
+            "Stop wasting time."
+        ];
+
+        function createNotes() {
+            const board = document.getElementById("board");
+            board.innerHTML = ""; // Clear previous notes
+
+            quotes.sort(() => Math.random() - 0.5); // Shuffle quotes
+
+            quotes.forEach((quote, index) => {
+                const note = document.createElement("div");
+                note.className = "note";
+                note.textContent = quote;
+                note.style.setProperty("--rotate", `${Math.random() * 6 - 3}deg`);
+                board.appendChild(note);
+            });
+        }
+
+        createNotes();
+    </script>
+
 </body>
 </html>
